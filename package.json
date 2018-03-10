@@ -1,0 +1,37 @@
+{
+  "name": "quasar_nuxt",
+  "version": "1.0.0",
+  "description": "A Quasar Framework app",
+  "productName": "Quasar App",
+  "cordovaId": "org.cordova.quasar.app",
+  "author": "王帅琪 <961345333@qq.com>",
+  "private": true,
+  "scripts": {
+    "test": "echo \"No test specified\" && exit 0"
+  },
+  "dependencies": {
+    "apollo-cache-inmemory": "^1.1.9",
+    "apollo-client": "^2.2.5",
+    "apollo-link": "^1.2.1",
+    "apollo-link-http": "^1.5.2",
+    "async": "^2.6.0",
+    "await": "^0.2.6",
+    "aws-sdk": "^2.205.0",
+    "axios": "^0.17.1",
+    "graphql": "^0.13.1",
+    "graphql-tag": "^2.8.0",
+    "vue-apollo": "^3.0.0-beta.4"
+  },
+  "devDependencies": {
+    "quasar-cli": "^0.15.5"
+  },
+  "engines": {
+    "node": ">= 8.9.0",
+    "npm": ">= 5.6.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 10"
+  ]
+}
