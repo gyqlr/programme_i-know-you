@@ -1,3 +1,9 @@
 # Quasar App
 
-> WIP
+## isntall
+`cd myproject` 
+`npm install`
+
+## run dev server
+`quasar dev -m pwa`
+
