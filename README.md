@@ -17,5 +17,5 @@ update(no need)
 ### question
 inspect(ok)
 add(ok) 
-question(here)
+delete(here)
 
