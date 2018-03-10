@@ -1,6 +1,6 @@
 # Quasar App
 
-## isntall
+## install
 `cd myproject` 
 `npm install`
 
