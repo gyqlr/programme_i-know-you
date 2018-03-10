@@ -38,7 +38,7 @@ module.exports = function (ctx) {
       proxy: {
         // proxy all requests starting with /api to jsonplaceholder
         '/api': {
-          target: 'http://localhost:5000/',
+          target: 'http://mywsq.cn/',
           changeOrigin: true,
           pathRewrite: {
             '^/api': ''
