@@ -26,7 +26,16 @@
       </q-card-title>
       <q-card-actions align="around">
           <q-btn flat round color="info" icon="visibility" @click="curOid=item.node.oid;opened=true"/>
-          <q-btn flat round color="primary" icon="share"/>
+          <q-btn flat round color="primary" icon="share">
+            <q-popover class="full-width">
+              <q-input
+              readonly
+              autofocus
+              :value="resultUrl(item.node.oid)"
+              class="q-ma-md"
+              />
+            </q-popover>
+          </q-btn>
           <q-btn flat round color="red" icon="delete" @click="del(item.node.oid)"/>
       </q-card-actions>
     </q-card>
@@ -50,8 +59,13 @@ export default {
       opened: false
     };
   },
+  computed: {
+  },
   components: { questionList },
   methods: {
+    resultUrl(oid) {
+      return location.host+'/answer/'+oid;
+    },
     del(oid) {
       this.$q
         .dialog({

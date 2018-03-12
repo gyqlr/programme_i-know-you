@@ -2,7 +2,7 @@
 <div class="q-mx-md">
     <q-toolbar shrink inverted >
     <q-toolbar-title>新增</q-toolbar-title>
-        <q-btn flat round icon="save" @click="submit">保存</q-btn>
+        <q-btn flat round icon="save" @click="submit" color="info" >保存</q-btn>
    </q-toolbar>
   <q-input v-model="questionInput.title" float-label="标题" class="q-my-lg" :loading="loading>0"/>
   <q-toggle v-model="questionInput.required" label="是否必填"/>
@@ -67,11 +67,7 @@ export default {
           mutation: this.submitSql,
         })
         .then((res) => {
-          this.$q.notify({
-            message: "全部创建完成后刷新页面",
-            color: "primary",
-            timeout: 3000,
-          });
+          this.$emit('refetch')
           this.loading--
         }).catch((error) => {
           this.$q.notify(error)

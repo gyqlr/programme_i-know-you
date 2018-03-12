@@ -38,7 +38,7 @@ module.exports = function (ctx) {
       proxy: {
         // proxy all requests starting with /api to jsonplaceholder
         '/api': {
-          target: 'http://mywsq.cn/',
+          target: 'http://localhost:5000/',
           changeOrigin: true,
           pathRewrite: {
             '^/api': ''
@@ -74,7 +74,8 @@ module.exports = function (ctx) {
         'QOptionGroup',
         'QSelect',
         'QToggle',
-        'QChipsInput'
+        'QChipsInput',
+        'QPopover'
       ],
       directives: [
         'Ripple'
