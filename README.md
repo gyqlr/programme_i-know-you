@@ -17,5 +17,10 @@ update(no need)
 ### question
 inspect(ok)
 add(ok) 
-delete(here)
+delete(ok)
+update(no need)
+### Answer
+add(ok)
+### analyse
+just begin
 
