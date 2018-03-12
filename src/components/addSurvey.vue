@@ -15,7 +15,7 @@
 import gql from "graphql-tag";
 import { date } from "quasar";
 export default {
-  name: "index",
+  name: "addSurvey",
   data() {
     return {
       surveyInput: {
@@ -67,19 +67,11 @@ export default {
           mutation: this.submitSql,
         })
         .then((res) => {
+          this.$emit('save')
           this.$q.notify({
             message: "创建成功",
             color: "primary",
             timeout: 3000,
-            actions: [
-              {
-                label: "查看",
-                icon: "visibility", // optional
-                handler: () => {
-                  console.log("acting");
-                }
-              }
-            ],
           });
           this.loading--
         }).catch((error) => {

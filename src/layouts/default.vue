@@ -9,8 +9,8 @@
           slot="title"
         ></q-route-tab>
         <q-route-tab
-          icon="library add"
-          to="/add"
+          icon="equalizer"
+          to="/analyse"
           exact
           slot="title"
         ></q-route-tab>

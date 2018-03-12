@@ -8,9 +8,9 @@ export default [{
           import ('pages/index')
       },
       {
-        path: 'add',
+        path: 'analyse',
         component: () =>
-          import ('pages/add/index')
+        import ('pages/analyse/index')
       }
     ]
   },

@@ -19,6 +19,10 @@
       </q-toolbar>
     <question-list :oid="curOid" class="q-pa-lg"/>
     </q-modal>
+    <q-modal v-model="addOpened" position="bottom">
+      <add-survey @save="refetch"/>
+    </q-modal>
+    <q-btn icon="add" color="primary" round @click="addOpened=true" class="fixed-bottom-right q-ma-md"/>
     <q-card class="q-ma-md" v-for="item in survey.edges" :key="item.id" square>
       <q-card-title>
         {{item.node.title}}
@@ -50,19 +54,24 @@
 import gql from "graphql-tag";
 import Loading from "quasar";
 import questionList from "../components/questionList.vue";
+import addSurvey from '../components/addSurvey'
 export default {
   name: "PageIndex",
   data() {
     return {
       survey: null,
       curOid: null,
-      opened: false
+      opened: false,
+      addOpened:false
     };
   },
   computed: {
   },
-  components: { questionList },
+  components: { questionList,addSurvey },
   methods: {
+    refetch(){
+      this.$apollo.queries.survey.refetch()
+    },
     resultUrl(oid) {
       return location.host+'/answer/'+oid;
     },
