@@ -1,8 +1,8 @@
 {
-  "name": "quasar_nuxt",
+  "name": "test",
   "version": "1.0.0",
-  "description": "A Quasar Framework app",
-  "productName": "Quasar App",
+  "description": "A Web app build with Quasar Framework",
+  "productName": "BUPT Questionnaire",
   "cordovaId": "org.cordova.quasar.app",
   "author": "王帅琪 <961345333@qq.com>",
   "private": true,
@@ -14,13 +14,14 @@
     "apollo-client": "^2.2.5",
     "apollo-link": "^1.2.1",
     "apollo-link-http": "^1.5.2",
-    "async": "^2.6.0",
     "await": "^0.2.6",
     "aws-sdk": "^2.205.0",
     "axios": "^0.17.1",
     "graphql": "^0.13.1",
     "graphql-tag": "^2.8.0",
-    "vue-apollo": "^3.0.0-beta.4"
+    "qrcodejs2": "0.0.2",
+    "vue-apollo": "^3.0.0-beta.4",
+    "vue-qrcode-component": "^2.1.1"
   },
   "devDependencies": {
     "quasar-cli": "^0.15.5"

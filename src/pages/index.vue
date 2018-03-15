@@ -19,7 +19,7 @@
       </q-toolbar>
     <question-list :oid="curOid" class="q-pa-lg"/>
     </q-modal>
-    <q-modal v-model="addOpened" position="bottom">
+    <q-modal v-model="addOpened" position="top">
       <add-survey @save="refetch"/>
     </q-modal>
     <q-btn icon="add" color="primary" round @click="addOpened=true" class="fixed-bottom-right q-ma-md"/>
@@ -31,13 +31,10 @@
       <q-card-actions align="around">
           <q-btn flat round color="info" icon="visibility" @click="curOid=item.node.oid;opened=true"/>
           <q-btn flat round color="primary" icon="share">
-            <q-popover class="full-width">
-              <q-input
-              readonly
-              autofocus
-              :value="resultUrl(item.node.oid)"
-              class="q-ma-md"
-              />
+            <q-popover class="full-width q-pa-xl" style="background-color:rgba(0,0,0,0.2);">
+              <div class="row justify-center">
+              <qr-code :text="resultUrl(item.node.oid)"/>
+              </div>
             </q-popover>
           </q-btn>
           <q-btn flat round color="red" icon="delete" @click="del(item.node.oid)"/>
@@ -54,7 +51,8 @@
 import gql from "graphql-tag";
 import Loading from "quasar";
 import questionList from "../components/questionList.vue";
-import addSurvey from '../components/addSurvey'
+import addSurvey from "../components/addSurvey";
+import VueQRCodeComponent from 'vue-qrcode-component'
 export default {
   name: "PageIndex",
   data() {
@@ -62,18 +60,20 @@ export default {
       survey: null,
       curOid: null,
       opened: false,
-      addOpened:false
+      addOpened: false
     };
   },
   computed: {
+    
   },
-  components: { questionList,addSurvey },
+  components: { questionList, addSurvey,'qr-code':VueQRCodeComponent},
   methods: {
-    refetch(){
-      this.$apollo.queries.survey.refetch()
+    refetch() {
+      this.$apollo.queries.survey.refetch();
     },
     resultUrl(oid) {
-      return location.host+'/answer/'+oid;
+      let host = location.hostname
+      return `http://${host === 'localhost'? '127.0.0.1':host}:${location.port}/answer/${oid}/'`
     },
     del(oid) {
       this.$q
@@ -110,9 +110,6 @@ export default {
           this.$q.loading.hide();
         });
     }
-  },
-  mounted() {
-    console.log(this.$apollo);
   },
   apollo: {
     survey: {

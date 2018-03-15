@@ -43,9 +43,9 @@
           </q-list>
           </transition-group>
         </div>
-      <q-inner-loading :visible="loading>0">
-          <q-spinner-gears size="3em" color="primary"></q-spinner-gears>
-      </q-inner-loading>
+        <q-inner-loading :visible="loading>0">
+          <q-spinner-gears size="50px" color="primary"/>
+        </q-inner-loading>
     </div>
     </div>
   </div>

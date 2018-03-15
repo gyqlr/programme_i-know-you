@@ -1,9 +1,5 @@
 <template>
-<div class="q-mx-md">
-    <q-toolbar shrink inverted >
-    <q-toolbar-title>新增</q-toolbar-title>
-        <q-btn flat round icon="save" @click="submit" color="info" >保存</q-btn>
-   </q-toolbar>
+<div class="q-mx-md colunm">
   <q-input v-model="questionInput.title" float-label="标题" class="q-my-lg" :loading="loading>0"/>
   <q-toggle v-model="questionInput.required" label="是否必填"/>
   <q-select
@@ -18,6 +14,9 @@
      ]"
     />
   <q-chips-input class="q-my-lg" float-label="选项" v-model="questionInput.optionList" v-if="questionInput.type!='填空题'"/>
+  <div class="row justify-end">
+  <q-btn @click="submit" color="primary" class="q-mb-md" >保存</q-btn>
+  </div>
 </div>
 </template>
 

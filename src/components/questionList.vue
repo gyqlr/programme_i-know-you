@@ -1,6 +1,6 @@
 <template>
   <div v-if="curSurvey">
-    <q-modal v-model="opened" position="bottom">
+    <q-modal v-model="opened" position="top">
    <add-question :survey-oid="oid" @refetch="refetch"/>
     </q-modal>
       <span class="q-title">{{curSurvey.title}} <span class="q-subheading" style="font-size:0.8em;color:#bcbcbc">{{curSurvey.subTitle}}</span></span>
