@@ -23,7 +23,7 @@
       enter-active-class="animated fadeInUp"
       >
       <div class="row q-mx-md q-ml-lg justify-center">
-        <h3>你好, buptQuestionnair</h3>
+        <h3>你好, buptQuestionnaire</h3>
       </div>
       </transition>
       <div class="q-mx-md relative-position">
