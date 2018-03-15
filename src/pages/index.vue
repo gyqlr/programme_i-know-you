@@ -1,4 +1,5 @@
 <template>
+  <div class="relative-position">
   <q-page class="column" v-if="survey">
     <q-modal v-model="opened" v-if="curOid">
       <q-toolbar color="primary">
@@ -23,7 +24,6 @@
       <add-survey @save="refetch"/>
     </q-modal>
     <q-btn icon="add" color="primary" round @click="addOpened=true" class="fixed-bottom-right q-ma-md"/>
-    <div class="relative-position">
     <q-card class="q-ma-md" v-for="item in survey.edges" :key="item.id" square>
       <q-card-title>
         {{item.node.title}}
@@ -41,11 +41,11 @@
           <q-btn flat round color="red" icon="delete" @click="del(item.node.oid)"/>
       </q-card-actions>
     </q-card>
-    <q-inner-loading :visible="loading>0">
+  </q-page>
+  <q-inner-loading :visible="loading>0">
           <q-spinner-gears size="50px" color="primary"/>
     </q-inner-loading>
-    </div>
-  </q-page>
+  </div>
 </template>
 
 <style>

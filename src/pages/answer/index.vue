@@ -1,11 +1,11 @@
 <template>
-<div>
+<div class="relative-position">
   <q-toolbar>
       <q-toolbar-title>
           问卷填写
       </q-toolbar-title>
   </q-toolbar>
-  <div  v-if="survey&&question" class="colunm q-ma-lg relative-position">
+  <div  v-if="survey&&question" class="colunm q-ma-lg">
       <span class="q-title">{{curSurvey.title}} <span v-if="curSurvey.subTitle!='null'" class="q-subheading" style="font-size:0.8em;color:#bcbcbc">{{curSurvey.subTitle}}</span></span>
       <br/>
       <br/>
@@ -13,10 +13,10 @@
       <hr/>
       <div v-if="question.edges&&!question.edges.length">一个问题都没有哇</div>
       <translate v-for="item in question.edges" :key="item.oid" :question="item" />
-      <q-inner-loading :visible="loading>0">
-          <q-spinner-gears size="50px" color="primary"/>
-        </q-inner-loading>
   </div>
+  <q-inner-loading :visible="loading>0">
+          <q-spinner-gears size="50px" color="primary"/>
+  </q-inner-loading>
 </div>
 </template>
 <script>
