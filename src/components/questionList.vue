@@ -1,9 +1,9 @@
 <template>
-  <div v-if="curSurvey">
+  <div v-if="curSurvey" class="relative-position">
     <q-modal v-model="opened" position="top">
    <add-question :survey-oid="oid" @refetch="refetch"/>
     </q-modal>
-      <span class="q-title">{{curSurvey.title}} <span class="q-subheading" style="font-size:0.8em;color:#bcbcbc">{{curSurvey.subTitle}}</span></span>
+      <span class="q-title">{{curSurvey.title}} <span class="q-subheading" style="font-size:0.8em;color:#bcbcbc" v-if="curSurvey.subTitle!='null'">{{curSurvey.subTitle}}</span></span>
       <br/>
       <br/>
       <span class="q-mt-lg">{{curSurvey.information}}</span>
@@ -18,6 +18,9 @@
       is-del="true"
       />
       <q-btn icon="add" color="primary" round @click="opened=true" class="fixed-bottom-right q-ma-md"/>
+      <q-inner-loading :visible="loading>0">
+          <q-spinner-gears size="50px" color="primary"/>
+      </q-inner-loading>
   </div>
 </template>
 <script>
@@ -30,7 +33,8 @@ export default {
     return {
       question: [],
       survey: null,
-      opened: false
+      opened: false,
+      loading:0
     };
   },
   props: ["oid"],
@@ -92,7 +96,8 @@ export default {
               }
             }
           }`;
-      }
+      },
+      loadingKey:'loading'
     },
     survey: {
       query() {
@@ -113,7 +118,8 @@ export default {
             }
           }
         `;
-      }
+      },
+      loadingKey:'loading'
     }
   }
 };
