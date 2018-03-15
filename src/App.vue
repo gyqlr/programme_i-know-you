@@ -11,4 +11,7 @@ export default {
 </script>
 
 <style>
+body{
+  color: #2c3e50
+}
 </style>

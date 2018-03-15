@@ -38,7 +38,7 @@ module.exports = function (ctx) {
       proxy: {
         // proxy all requests starting with /api to jsonplaceholder
         '/api': {
-          target: 'http://localhost:5000/',
+          target: 'http://localhost:8081/',
           changeOrigin: true,
           pathRewrite: {
             '^/api': ''
@@ -75,7 +75,18 @@ module.exports = function (ctx) {
         'QSelect',
         'QToggle',
         'QChipsInput',
-        'QPopover'
+        'QPopover',
+        'QList',
+        'QListHeader',
+        'QItem',
+        'QItemMain',
+        'QItemSeparator',
+        'QItemSide',
+        'QItemTile',
+        'QRating',
+        'QInnerLoading',
+        'QSpinnerGears',
+        'QKnob'
       ],
       directives: [
         'Ripple'
@@ -88,6 +99,9 @@ module.exports = function (ctx) {
     },
     // animations: 'all' --- includes all animations
     animations: [
+      'fadeInDown',
+      'fadeInUp',
+      'fadeIn'
     ],
     pwa: {
       cacheExt: 'js,html,css,ttf,eot,otf,woff,woff2,json,svg,gif,jpg,jpeg,png,wav,ogg,webm,flac,aac,mp4,mp3',
