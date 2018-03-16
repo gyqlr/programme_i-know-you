@@ -7,7 +7,7 @@
         :value="rating"
         readonly
             :min="0"
-            :max="5"
+            :max="100"
         style="font-size: 3em"
         color="primary"
             />
@@ -18,7 +18,7 @@
             <q-item v-for="item in questionAnalyseItem.answer" :key="item.content">
               <q-item-main :label="item.content" label-lines="1" style="font-size:.8em"/>
               <q-item-side right>
-                <q-rating :value="item.rating" :max="5" />
+                <q-rating :value="Math.round(item.rating/20)" :max="5" />
               </q-item-side>
             </q-item>
             <q-item v-if="!questionAnalyseItem.answer.length">暂时没有回答</q-item>

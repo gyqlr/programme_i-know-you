@@ -36,7 +36,7 @@
             <q-item v-for="item in questionAnalyseItems" :key="item.oid">
               <q-item-main :label="item.title" label-lines="1" style="font-size:.8em"/>
               <q-item-side right>
-                <q-rating :value="item.rating" :max="5" />
+                <q-rating :value="Math.round(item.rating/20)" :max="5" />
                 <q-btn flat @click="show(item.oid)" ><b style="color:#51b882">{{item.count}} </b>份回答</q-btn>
               </q-item-side>
             </q-item>

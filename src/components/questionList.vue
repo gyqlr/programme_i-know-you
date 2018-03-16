@@ -1,4 +1,5 @@
 <template>
+<div class="relative-position">
   <div v-if="curSurvey" class="relative-position">
     <q-modal v-model="opened" position="top">
    <add-question :survey-oid="oid" @refetch="refetch"/>
@@ -18,10 +19,11 @@
       is-del="true"
       />
       <q-btn icon="add" color="primary" round @click="opened=true" class="fixed-bottom-right q-ma-md"/>
+  </div>
       <q-inner-loading :visible="loading>0">
           <q-spinner-gears size="50px" color="primary"/>
       </q-inner-loading>
-  </div>
+</div>
 </template>
 <script>
 import Translate from "../components/translate.vue";
@@ -34,7 +36,7 @@ export default {
       question: [],
       survey: null,
       opened: false,
-      loading:0
+      loading: 0
     };
   },
   props: ["oid"],
@@ -45,13 +47,13 @@ export default {
     }
   },
   methods: {
-    refetch(){
-      this.$apollo.queries.question.refetch()
-       this.$q.notify({
-            message: "创建成功",
-            color: "primary",
-            timeout: 3000,
-          });
+    refetch() {
+      this.$apollo.queries.question.refetch();
+      this.$q.notify({
+        message: "创建成功",
+        color: "primary",
+        timeout: 3000
+      });
     },
     del(oid) {
       this.$apollo
@@ -68,15 +70,16 @@ export default {
           }
         })
         .then(res => {
-          this.$apollo.queries.question.refetch()
+          this.$apollo.queries.question.refetch();
           this.$q.notify({
-                message: "删除成功",
-                color: "primary",
-                timeout: 1500,
-                icon: "bubble chart"
-              })
-        }).catch(error=>{
-          this.$q.notify(error)
+            message: "删除成功",
+            color: "primary",
+            timeout: 1500,
+            icon: "bubble chart"
+          });
+        })
+        .catch(error => {
+          this.$q.notify(error);
         });
     }
   },
@@ -97,7 +100,7 @@ export default {
             }
           }`;
       },
-      loadingKey:'loading'
+      loadingKey: "loading"
     },
     survey: {
       query() {
@@ -119,7 +122,7 @@ export default {
           }
         `;
       },
-      loadingKey:'loading'
+      loadingKey: "loading"
     }
   }
 };
