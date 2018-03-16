@@ -79,7 +79,7 @@ export default {
     },
     resultUrl(oid) {
       let host = location.hostname
-      return `http://${host === 'localhost'? '127.0.0.1':host}:${location.port}/answer/${oid}`
+      return `http://${host === 'localhost'? '127.0.0.1':host}:${location.port}/#/answer/${oid}`
     },
     del(oid) {
       this.$q
