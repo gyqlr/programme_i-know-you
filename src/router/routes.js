@@ -19,6 +19,11 @@ export default [{
     component: () =>
       import ('pages/answer/index')
   },
+  {
+    path:'/login',
+    component: ()=>
+      import ('pages/login/index')
+  },
   { // Always leave this as last one
     path: '*',
     component: () =>

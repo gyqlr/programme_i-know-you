@@ -4,7 +4,8 @@ module.exports = function (ctx) {
   return {
     plugins: [
       'axios',
-      'apollo'
+      'apollo',
+      'bmob'
     ],
     css: [
       'app.styl'
@@ -42,6 +43,13 @@ module.exports = function (ctx) {
           changeOrigin: true,
           pathRewrite: {
             '^/api': ''
+          }
+        },
+        '/bmob': {
+          target: 'https://api.bmob.cn/',
+          changeOrigin: true,
+          pathRewrite: {
+            '^/bmob': ''
           }
         }
       }
@@ -86,7 +94,10 @@ module.exports = function (ctx) {
         'QRating',
         'QInnerLoading',
         'QSpinnerGears',
-        'QKnob'
+        'QKnob',
+        'QStepper',
+        'QStep',
+        'QStepperNavigation'
       ],
       directives: [
         'Ripple'
@@ -94,7 +105,8 @@ module.exports = function (ctx) {
       plugins: [
         'Notify',
         'Loading',
-        'Dialog'
+        'Dialog',
+        // 'Cookies'
       ]
     },
     // animations: 'all' --- includes all animations
