@@ -6,7 +6,7 @@
               <p class="q-ma-md vertical-middle" style="font-size:1.3em">创建您的账号</p>
             </div>
             <q-btn round flat icon="more_vert" slot="right">
-              <q-popover>
+              <q-popover :self="$q.platform.is.mobile?'bottom right':'top left'">
                 <q-list link class="no-border">
                   <q-item >
                     <q-item-main label="已有账号登录"/>
@@ -76,7 +76,7 @@
 <script>
 import gql from "graphql-tag";
 import { setInterval, clearInterval } from "timers";
-import { Cookies } from "quasar";
+import { Cookies, Platform } from "quasar";
 import crypto from "crypto";
 export default {
   name: "signUp",
@@ -210,6 +210,7 @@ export default {
         transform: translate(-50%,-50%);
         width: 100vw;
     }
+    
     
 }
 #name-input {
