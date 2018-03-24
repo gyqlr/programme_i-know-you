@@ -10,7 +10,7 @@ export default [{
       {
         path: 'analyse',
         component: () =>
-        import ('pages/analyse/index')
+          import ('pages/analyse/index')
       }
     ]
   },
@@ -20,9 +20,18 @@ export default [{
       import ('pages/answer/index')
   },
   {
-    path:'/login',
-    component: ()=>
-      import ('pages/login/index')
+    path: '/user',
+    component: () =>
+      import ('pages/user/index'),
+    children: [{
+      path: 'signup',
+      component: () =>
+        import ('pages/user/signUp')
+    }, {
+      path: 'login',
+      component: () =>
+        import ('pages/user/login')
+    }]
   },
   { // Always leave this as last one
     path: '*',

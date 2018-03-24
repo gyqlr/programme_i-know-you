@@ -20,12 +20,12 @@
           </q-card-title>
           <q-card-main class="q-mt-lg" id="main">
            <q-field :count="10" id="name-input" v-if="step===0" key="step-0" class="animate-pop" :error="name.length>10">
-              <p class="caption q-mb-xl" style="text-align:center;font-size:1.5em;">您的昵称</p>
-              <q-input maxlength="10" v-model="name" align="center" autofocus />
+              <p class="caption q-mb-xl" style="text-align:center;font-size:1.5em;" >您的昵称</p>
+              <q-input maxlength="10" v-model="name" align="center" autofocus @keyup.enter="isOk?step++:null"/>
            </q-field>
             <q-field :count="13" id="name-input" v-if="step===1" key="step-1" class="animate-pop" helper="6~13位" :error="password.length<6||password.length>13">
               <p class="caption q-mb-xl" style="text-align:center;font-size:1.5em;">设置您的密码</p>
-              <q-input type="password" maxlength="13" v-model="password" align="center" autofocus/>
+              <q-input type="password" maxlength="13" v-model="password" align="center" autofocus @keyup.enter="isOk?step++:null"/>
            </q-field>
             <q-field 
             :count="11" 
@@ -66,7 +66,7 @@
             color="primary" 
             @click="step++" 
             v-if="step<2" 
-            :disable="(step===0&&(!name||name.length>10))||(step===1&&(password.length<6||password.length>13))" 
+            :disable="!isOk" 
             label="下一步"
             />
             <q-btn color="primary" label="提交" @click="onSubmitClick" v-if="step===2&&sending" :disable="!code"/>
@@ -95,11 +95,19 @@ export default {
       codeError: false // 验证码是否正确
     };
   },
-
+  computed: {
+    // 是否可以进行下一步
+    isOk() {
+      return (this.step === 0 && this.name) ||
+      (this.step === 1 && this.password.length >= 6 && this.password.length <= 13)
+        ? true
+        : false;
+    }
+  },
   methods: {
-      refresh(){
-          location.href=location.pathname
-      },
+    refresh() {
+      location.href = location.pathname;
+    },
     getToken() {
       return Cookies.get("authToken");
     },
@@ -149,7 +157,7 @@ export default {
             })
             .then(data => {
               Cookies.set("authToken", data.data.signUp.user.authToken, {
-                expires:30,
+                expires: 30
               });
               this.step++;
               this.loading--;
@@ -190,28 +198,26 @@ export default {
 };
 </script>
 <style scoped>
-#container{
-    background-color:#fff;
+#container {
+  background-color: #fff;
 }
- @media screen and (max-width: 575px) {
-    #container{
-        height: 100vh;
-        position: relative;
-    }
-    #action{
-        position: absolute;
-        bottom: 0;
-        right: 0;
-    }
-    #main{
-        position: absolute;
-        top: 50vh;
-        left: 50vw;
-        transform: translate(-50%,-50%);
-        width: 100vw;
-    }
-    
-    
+@media screen and (max-width: 575px) {
+  #container {
+    height: 100vh;
+    position: relative;
+  }
+  #action {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+  }
+  #main {
+    position: absolute;
+    top: 50vh;
+    left: 50vw;
+    transform: translate(-50%, -50%);
+    width: 100vw;
+  }
 }
 #name-input {
   max-width: 12em;
