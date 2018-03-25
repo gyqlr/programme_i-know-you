@@ -106,6 +106,7 @@ module.exports = function (ctx) {
         'Notify',
         'Loading',
         'Dialog',
+        'AppFullscreen',
         // 'Cookies'
       ]
     },

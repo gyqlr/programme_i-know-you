@@ -8,10 +8,10 @@
             <q-btn round flat icon="more_vert" slot="right">
               <q-popover :self="$q.platform.is.mobile?'bottom right':'top left'">
                 <q-list link class="no-border">
-                  <q-item >
+                  <q-item to="/user/login">
                     <q-item-main label="已有账号登录"/>
                   </q-item>
-                   <q-item>
+                   <q-item to="/user/reset">
                    <q-item-main label="忘记密码了?"/>
                   </q-item>
                 </q-list>

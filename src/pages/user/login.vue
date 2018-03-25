@@ -11,7 +11,7 @@
                   <q-item to="/user/signup">
                    <q-item-main label="创建新账号" />
                   </q-item>
-                   <q-item>
+                   <q-item to="/user/reset">
                    <q-item-main label="忘记密码了?"/>
                   </q-item>
                 </q-list>
@@ -19,10 +19,10 @@
             </q-btn>
           </q-card-title>
           <q-card-main class="q-mt-lg q-pa-lg" id="main">
-           <q-field class="animate-pop q-mb-md" :error="error.phoneNumber ? true:false " :error-label="error.phoneNumber">
+           <q-field class="animate-pop q-mb-md" :error="phoneNumberError ? true:false " :error-label="phoneNumberError">
               <q-input type="number" v-model="phoneNumber" autofocus float-label="手机号" />
            </q-field>
-           <q-field :count="13" class="animate-pop" :error="error.password ? true:false " :error-label="error.password">
+           <q-field :count="13" class="animate-pop" :error="passwordError? true:false " :error-label="passwordError">
               <q-input type="password" maxlength="13" v-model="password" float-label="密码" @keyup.enter="isOk?submit():null"/>
            </q-field>
           </q-card-main>
@@ -41,33 +41,19 @@ export default {
       phoneNumber: null,
       password: "",
       validPassword: "",
-      error: {
-        phoneNumber: null,
-        password: null
-      },
-      loading: 0,
-      login: null
+      passwordError: null,
+      phoneNumberError: null,
+      loading: 0
     };
   },
   computed: {
     isOk() {
-      return (
-        !this.error.phoneNumber &&
-        !this.error.password &&
-        this.phoneNumber &&
-        this.password.length >= 6
-      );
+      return !this.error && this.phoneNumber && this.password
     }
   },
   methods: {
-    getHex(password) {
-      const cipher = crypto.createCipher("aes192", password);
-      let encrypted = cipher.update(this.phoneNumber.toString(), "utf8", "hex");
-      encrypted += cipher.final("hex");
-      return encrypted;
-    },
     submit() {
-      this.validPassword = this.getHex(this.password);
+      this.$apollo.queries.login.skip = false;
     }
   },
   apollo: {
@@ -85,39 +71,35 @@ export default {
       variables() {
         return {
           n: this.phoneNumber.toString(),
-          p: this.validPassword
+          p: this.$Msg.getHex(this.phoneNumber,this.password)
         };
       },
       loadingKey: "loading",
       skip() {
-        return !this.phoneNumber || this.phoneNumber.toString().length < 11;
+        return true;
+      },
+      manual: true,
+      result({ data }) {
+          console.log(data)
+        if (data.login.error === "password") {
+          this.passwordError = "密码错误";
+        } else if (data.login.error === "phone_number") {
+          this.phoneNumberError = "号码未注册";
+        } else if (data.login.user.authToken) {
+          Cookies.set("authToken", data.login.user.authToken, { expires: 30 });
+          this.$router.push("/");
+        }
       }
     }
   },
   watch: {
-    login(newlogin) {
-      newlogin.error === "phone_number"
-        ? (this.error.phoneNumber = "手机号码未注册")
-        : (this.error.phoneNumber = null);
-      this.validPassword.length > 0 && newlogin.error === "password"
-        ? (this.error.password = "密码不正确")
-        : (this.error.password = null);
-      if (newlogin.user && newlogin.user.authToken) {
-        Cookies.set("authToken", newlogin.user.authToken, { expires: 30 });
-        this.$router.push("/");
-      }
-    },
     password(newValue) {
-      this.login = null;
-      if (this.error.password) {
-        this.validPassword = "";
-      }
+      this.$apollo.queries.login.skip = true;
+      this.passwordError = null;
     },
-    // 电话号码删除到小于11位以后清除错误状态
     phoneNumber(newValue) {
-      this.error.phoneNumber && newValue.toString().length < 11
-        ? (this.error.phoneNumber = null)
-        : null;
+      this.$apollo.queries.login.skip = true;
+      this.phoneNumberError = null;
     }
   }
 };

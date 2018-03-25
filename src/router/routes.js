@@ -31,6 +31,10 @@ export default [{
       path: 'login',
       component: () =>
         import ('pages/user/login')
+    },{
+      path: 'reset',
+      component: () =>
+        import('pages/user/reset')
     }]
   },
   { // Always leave this as last one

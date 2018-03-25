@@ -6,7 +6,7 @@
   </div>
 </template>
 <script>
-import {Cookies} from 'quasar'
+import {Cookies , AppFullscreen} from 'quasar'
 export default {
   data() {
     return {
