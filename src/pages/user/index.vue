@@ -1,6 +1,6 @@
 <template>
   <div class="row justify-center window-height container">
-    <div class="col-lg-4 col-md-6 col-sm-12 self-center">
+    <div class="full-width self-center">
         <router-view/>
     </div>
   </div>

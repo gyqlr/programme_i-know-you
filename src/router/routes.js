@@ -3,21 +3,10 @@ export default [{
     component: () =>
       import ('layouts/default'),
     children: [{
-        path: '',
-        component: () =>
-          import ('pages/index')
-      },
-      {
-        path: 'analyse',
-        component: () =>
-          import ('pages/analyse/index')
-      }
-    ]
-  },
-  {
-    path: '/answer/:oid',
-    component: () =>
-      import ('pages/answer/index')
+      path: 'home',
+      component: () =>
+        import ('pages/index')
+    }, ]
   },
   {
     path: '/user',
@@ -31,10 +20,10 @@ export default [{
       path: 'login',
       component: () =>
         import ('pages/user/login')
-    },{
+    }, {
       path: 'reset',
       component: () =>
-        import('pages/user/reset')
+        import ('pages/user/reset')
     }]
   },
   { // Always leave this as last one

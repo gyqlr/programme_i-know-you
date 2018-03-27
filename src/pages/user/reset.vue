@@ -1,9 +1,9 @@
 <template>
-  <q-card class="full-width" id="container">
+  <q-card class="q-mx-sm" id="container">
           <q-card-title>
             <div class="row">
               <img src="../../statics/img/logo.svg" style="width:3em;height:3em;"/>
-              <p class="q-ma-md vertical-middle" style="font-size:1.3em">重置您的密码</p>
+              <p class="q-ma-md vertical-middle" style="font-size:1em">重置您的密码</p>
             </div>
             <q-btn round flat icon="more_vert" slot="right">
               <q-popover :self="$q.platform.is.mobile?'bottom right':'top left'">
@@ -33,7 +33,7 @@
           </q-card-main>
           <q-card-actions align="end" class="q-pa-lg" id="action" >
             <q-btn color="primary" v-if="step === 0" :disable="!numberOk" @click="submit" label="下一步"/>
-            <q-btn color="primary" v-if="step === 2" :disable="!passwordOk" @click="submit" label="提交"/>
+            <q-btn color="primary" v-if="step === 2" :disable="!passwordOk" @click="submit" label="提交" :loading="loading>0"/>
           </q-card-actions>
         </q-card>
 </template>
@@ -98,11 +98,11 @@ export default {
             reset(phoneNumber: "${
               this.phoneNumber
             }", password: "${this.$Msg.getHex(
-          this.phoneNumber,
+          this.phoneNumber || "",
           this.password
         )}") {
-              error
-            }
+          name
+        }
           }
         `;
         this.$apollo
@@ -155,15 +155,16 @@ export default {
       if (newValue.length === 6) {
         this.submit();
       }
+    },
+    password() {
+      this.error.password = null;
     }
   },
   apollo: {
     checkPhone: {
       query: gql`
         query($n: String!) {
-          checkPhone(phoneNumber: $n) {
-            status
-          }
+          checkPhone(phoneNumber: $n)
         }
       `,
       variables() {
@@ -173,8 +174,9 @@ export default {
       skip() {
         return true;
       },
-      result({ data, loading }) {
-        if (!loading && data.checkPhone.status) {
+      manual: true,
+      result({ data }) {
+        if (data.checkPhone) {
           this.error.number = "未注册";
         }
       }
@@ -185,23 +187,5 @@ export default {
 <style scoped>
 #container {
   background-color: #fff;
-}
-@media screen and (max-width: 575px) {
-  #container {
-    height: 100vh;
-    position: relative;
-  }
-  #action {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-  }
-  #main {
-    position: absolute;
-    top: 50vh;
-    left: 50vw;
-    transform: translate(-50%, -50%);
-    width: 100vw;
-  }
 }
 </style>

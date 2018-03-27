@@ -1,12 +1,12 @@
 <template>
-  <q-card class="full-width" id="container">
+  <q-card class="q-mx-sm" id="container">
           <q-card-title>
             <div class="row">
               <img src="../../statics/img/logo.svg" style="width:3em;height:3em;"/>
-              <p class="q-ma-md vertical-middle" style="font-size:1.3em">创建您的账号</p>
+              <p class="q-ma-md vertical-middle" style="font-size:1em">创建您的账号</p>
             </div>
             <q-btn round flat icon="more_vert" slot="right">
-              <q-popover :self="$q.platform.is.mobile?'bottom right':'top left'">
+              <q-popover self="top right">
                 <q-list link class="no-border">
                   <q-item to="/user/login">
                     <q-item-main label="已有账号登录"/>
@@ -33,7 +33,7 @@
             v-if="step===2&&!sending" 
             key="step-2" class="animate-pop" 
             :warning="!phoneNumber||phoneNumber.toString().length!==11"
-            :error="vaildPhoneNumber.length>0&&checkPhone&&!checkPhone.status"
+            :error="vaildPhoneNumber.length>0&&!checkPhone"
             error-label="已注册">
               <p class="caption q-mb-xl" style="text-align:center;font-size:1.5em;">验证您的手机号</p>
               <q-input 
@@ -52,7 +52,6 @@
             <q-input float-label="请输入您收到的验证码" v-model="code" class="animate-pop" v-if="step===2&&sending" />
             </q-field>
             <q-btn  flat color="primary" class="q-ml-md animate-pop" @click="onSendClick" :loading="loading>0" :disable="this.time>0" :label="`${ time>0 ? time.toString()+'秒后':''}重发`" v-if="step===2&&sending"/>
-            <q-btn flat color="primary" class="animate-pop" label="恭喜!您的号码未被注册,点击发送验证码" @click="onSendClick" v-if="!sending&&step==2&&phoneNumber&&phoneNumber.toString().length===11&&checkPhone&&checkPhone.status"/>
             </div>
             <div v-if="step===3" class="column items-center">
                 <p style="text-align:center;font-size:3em;" >恭喜!注册成功</p>
@@ -62,6 +61,7 @@
           </q-card-main>
           <q-card-actions align="end" class="q-pa-lg" id="action" >
             <q-btn flat color="primary" @click="step--" v-if="step>0&&step!=3" label="返回"/>
+            <q-btn color="primary" class="animate-pop" label="发送验证码" @click="onSendClick" v-if="!sending&&step==2&&phoneNumber&&phoneNumber.toString().length===11&&checkPhone&&loading==0"/>
             <q-btn  
             color="primary" 
             @click="step++" 
@@ -99,7 +99,9 @@ export default {
     // 是否可以进行下一步
     isOk() {
       return (this.step === 0 && this.name) ||
-      (this.step === 1 && this.password.length >= 6 && this.password.length <= 13)
+        (this.step === 1 &&
+          this.password.length >= 6 &&
+          this.password.length <= 13)
         ? true
         : false;
     }
@@ -144,10 +146,8 @@ export default {
                   password: "${encrypted}"
                   phoneNumber: "${this.vaildPhoneNumber}"
                 ) {
-                  user {
                     authToken
                   }
-                }
               }
             `;
           this.loading++;
@@ -156,7 +156,7 @@ export default {
               mutation: s
             })
             .then(data => {
-              Cookies.set("authToken", data.data.signUp.user.authToken, {
+              Cookies.set("authToken", data.data.signUp.authToken, {
                 expires: 30
               });
               this.step++;
@@ -185,11 +185,7 @@ export default {
   apollo: {
     checkPhone: {
       query() {
-        return gql`{
-              checkPhone(phoneNumber:"${this.vaildPhoneNumber}"){
-                  status
-              }
-              }
+        return gql`{checkPhone(phoneNumber:"${this.vaildPhoneNumber}")}
               `;
       },
       loadingKey: "loading"
@@ -200,24 +196,6 @@ export default {
 <style scoped>
 #container {
   background-color: #fff;
-}
-@media screen and (max-width: 575px) {
-  #container {
-    height: 100vh;
-    position: relative;
-  }
-  #action {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-  }
-  #main {
-    position: absolute;
-    top: 50vh;
-    left: 50vw;
-    transform: translate(-50%, -50%);
-    width: 100vw;
-  }
 }
 #name-input {
   max-width: 12em;

@@ -29,8 +29,7 @@ module.exports = function (ctx) {
       // analyze: true,
       // extractCSS: false,
       // useNotifier: false,
-      extendWebpack (cfg) {
-      }
+      extendWebpack(cfg) {}
     },
     devServer: {
       // https: true,
@@ -39,11 +38,8 @@ module.exports = function (ctx) {
       proxy: {
         // proxy all requests starting with /api to jsonplaceholder
         '/api': {
-          target: 'http://localhost:8081/',
+          target: 'http://localhost:9999',
           changeOrigin: true,
-          pathRewrite: {
-            '^/api': ''
-          }
         },
         '/bmob': {
           target: 'https://api.bmob.cn/',
@@ -56,7 +52,7 @@ module.exports = function (ctx) {
     },
     // framework: 'all' --- includes everything; for dev only!
     framework: {
-      i18n:'zh-hans',
+      i18n: 'zh-hans',
       components: [
         'QLayout',
         'QLayoutHeader',
@@ -119,36 +115,35 @@ module.exports = function (ctx) {
     pwa: {
       cacheExt: 'js,html,css,ttf,eot,otf,woff,woff2,json,svg,gif,jpg,jpeg,png,wav,ogg,webm,flac,aac,mp4,mp3',
       manifest: {
-        // name: 'Quasar App',
-        // short_name: 'Quasar-PWA',
-        // description: 'Best PWA App in town!',
+        name: "未命名 - 智能问卷系统",
+        short_name: "Untitled",
+        description: "给你想要的结果",
         display: 'standalone',
         orientation: 'portrait',
         background_color: '#ffffff',
-        theme_color: '#bcbcbc',
-        icons: [
-          {
+        theme_color: '#51b882',
+        icons: [{
             'src': 'statics/icons/icon-128x128.png',
             'sizes': '128x128',
             'type': 'image/png'
           },
           {
-            'src': 'statics/icons/icon-192x192.png',
+            'src': 'statics/icons/icon - 192*192.png',
             'sizes': '192x192',
             'type': 'image/png'
           },
           {
-            'src': 'statics/icons/icon-256x256.png',
+            'src': 'statics/icons/icon - 256*256.png',
             'sizes': '256x256',
             'type': 'image/png'
           },
           {
-            'src': 'statics/icons/icon-384x384.png',
+            'src': 'statics/icons/icon - 384*384.png',
             'sizes': '384x384',
             'type': 'image/png'
           },
           {
-            'src': 'statics/icons/icon-512x512.png',
+            'src': 'statics/icons/icon - 512*512.png',
             'sizes': '512x512',
             'type': 'image/png'
           }
@@ -159,7 +154,7 @@ module.exports = function (ctx) {
       // id: 'org.cordova.quasar.app'
     },
     electron: {
-      extendWebpack (cfg) {
+      extendWebpack(cfg) {
         // do something with cfg
       },
       packager: {

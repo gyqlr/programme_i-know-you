@@ -1,11 +1,11 @@
 {
-  "name": "test",
+  "name": "untitled",
   "version": "1.0.0",
-  "description": "A Web app build with Quasar Framework",
-  "productName": "BUPT Questionnaire",
+  "description": "给你想要的结果",
+  "productName": "未命名 - 智能问卷系统",
   "cordovaId": "org.cordova.quasar.app",
   "author": "王帅琪 <961345333@qq.com>",
-  "private": true,
+  "private": false,
   "scripts": {
     "test": "echo \"No test specified\" && exit 0"
   },
@@ -14,7 +14,6 @@
     "apollo-client": "^2.2.5",
     "apollo-link": "^1.2.1",
     "apollo-link-http": "^1.5.2",
-    "await": "^0.2.6",
     "aws-sdk": "^2.205.0",
     "axios": "^0.17.1",
     "graphql": "^0.13.1",

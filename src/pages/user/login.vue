@@ -1,12 +1,12 @@
 <template>
-  <q-card class="full-width" id="container">
+  <q-card class="q-mx-sm" id="container">
           <q-card-title>
             <div class="row">
               <img src="../../statics/img/logo.svg" style="width:3em;height:3em;"/>
-              <p class="q-ma-md vertical-middle" style="font-size:1.3em">未命名 - 智能化问卷系统</p>
+              <p class="q-ma-md vertical-middle" style="font-size:1em">未命名 - 登录</p>
             </div>
             <q-btn round flat icon="more_vert" slot="right">
-              <q-popover :self="$q.platform.is.mobile?'bottom right':'top left'">
+              <q-popover self='top right'>
                 <q-list link class="no-border">
                   <q-item to="/user/signup">
                    <q-item-main label="创建新账号" />
@@ -27,7 +27,7 @@
            </q-field>
           </q-card-main>
           <q-card-actions align="end" class="q-pa-lg" id="action" >
-            <q-btn color="primary" :disable="!isOk" :loading="validPassword.length>0&&loading>0" @click="submit" label="登录"/>
+            <q-btn color="primary" class="full-width" :disable="!isOk" :loading="validPassword.length>0&&loading>0" @click="submit" label="登录"/>
           </q-card-actions>
         </q-card>
 </template>
@@ -48,7 +48,12 @@ export default {
   },
   computed: {
     isOk() {
-      return !this.error && this.phoneNumber && this.password
+      return (
+        !this.passwordError &&
+        !this.phoneNumberError &&
+        this.phoneNumber &&
+        this.password
+      );
     }
   },
   methods: {
@@ -58,21 +63,20 @@ export default {
   },
   apollo: {
     login: {
-      query: gql`
-        query($n: String!, $p: String!) {
-          login(phoneNumber: $n, password: $p) {
-            user {
+      query() {
+        return gql`
+          {
+            login(
+              phoneNumber: "${this.phoneNumber}"
+              password: "${this.$Msg.getHex(
+                this.phoneNumber || "",
+                this.password
+              )}"
+            ) {
               authToken
             }
-            error
           }
-        }
-      `,
-      variables() {
-        return {
-          n: this.phoneNumber.toString(),
-          p: this.$Msg.getHex(this.phoneNumber,this.password)
-        };
+        `;
       },
       loadingKey: "loading",
       skip() {
@@ -80,15 +84,24 @@ export default {
       },
       manual: true,
       result({ data }) {
-          console.log(data)
-        if (data.login.error === "password") {
-          this.passwordError = "密码错误";
-        } else if (data.login.error === "phone_number") {
-          this.phoneNumberError = "号码未注册";
-        } else if (data.login.user.authToken) {
-          Cookies.set("authToken", data.login.user.authToken, { expires: 30 });
-          this.$router.push("/");
-        }
+        Cookies.set("authToken", data.login.authToken, { expires: 30 });
+        this.$router.push("/");
+      },
+      error() {
+        this.passwordError = "密码错误"
+      }
+    },
+    check: {
+      query() {
+        return gql`{checkPhone(phoneNumber:"${this.phoneNumber}")}`;
+      },
+      skip() {
+        return !this.$Msg.phoneCheck(this.phoneNumber);
+      },
+      manual: true,
+      loadingKey: "loading",
+      result({ data }) {
+        data.checkPhone ? (this.phoneNumberError = "号码未注册") : null;
       }
     }
   },
@@ -98,8 +111,9 @@ export default {
       this.passwordError = null;
     },
     phoneNumber(newValue) {
+      this.$apollo.queries.check.skip = true;
       this.$apollo.queries.login.skip = true;
-      this.phoneNumberError = null;
+      this.$Msg.phoneCheck(newValue) ? (this.phoneNumberError = null) : null;
     }
   }
 };
@@ -109,7 +123,7 @@ export default {
   background-color: #fff;
 }
 @media screen and (max-width: 575px) {
-  #container {
+  /* #container {
     height: 100vh;
     position: relative;
   }
@@ -124,7 +138,7 @@ export default {
     left: 50vw;
     transform: translate(-50%, -50%);
     width: 100vw;
-  }
+  } */
 }
 </style>
 
