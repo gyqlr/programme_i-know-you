@@ -1,4 +1,5 @@
 import Axios from 'axios'
+
 var instance = Axios.create({
   baseURL: '/bmob/1',
   headers: {
@@ -25,12 +26,34 @@ Msg.phoneCheck = (phone_number) => {
 }
 
 import crypto from "crypto";
-Msg.getHex = (phone_number,password) => {
+Msg.getHex = (phone_number, password) => {
   const cipher = crypto.createCipher("aes192", password);
   let encrypted = cipher.update(phone_number.toString(), "utf8", "hex");
   encrypted += cipher.final("hex");
   return encrypted;
 }
+
+var cur = Date.parse(new Date());
+Msg.getTime = (timeStamp) => {
+  let time = Math.floor(cur) - Math.floor(timeStamp * 1000)
+  let per = 1000;
+  if (time <= per) {
+    return '刚刚'
+  } else if (time <= per * 60) {
+    return Math.floor(time / per) + '秒前'
+  } else if (time <= per * 60 * 60) {
+    return Math.floor(time / per / 60) + '分钟前'
+  } else if (time <= per * 60 * 60 * 24) {
+    return Math.floor(time / per / 60 / 60) + '小时前'
+  } else if (time <= per * 60 * 60 * 24 * 30) {
+    return Math.floor(time / per / 60 / 60 / 24) + '天前'
+  } else if (time <= per * 60 * 60 * 24 * 30 * 12) {
+    return Math.floor(time / per / 60 / 60 / 24 / 30) + '月前'
+  } else {
+    return Math.floor(time / per / 60 / 60 / 24 / 30 / 12) + '年前'
+  }
+}
+
 export default ({
   Vue
 }) => {

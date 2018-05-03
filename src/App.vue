@@ -12,6 +12,8 @@ export default {
 
 <style>
 body{
-  color: #2c3e50
+  color: #2c3e50;
+  overscroll-behavior: contain;
+  overflow-x: hidden;
 }
 </style>

@@ -70,7 +70,7 @@ export default {
           this.loading--;
         })
         .catch(error => {
-          this.error.number = error.toString();
+          this.$q.notify(error.toString())
           this.loading--;
         });
     },

@@ -1,6 +1,6 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-layout-header>
+    <q-layout-header class="shadow-1" reveal>
      <q-toolbar>
         <q-btn flat round dense icon="menu">
           <q-popover self="top right" v-if="user">
@@ -15,20 +15,20 @@
                 </q-list>
               </q-popover>
         </q-btn>
-        <q-toolbar-title>
+        <q-toolbar-title style="color:#fff">
          {{title}}
         </q-toolbar-title>
       </q-toolbar>
-      <q-tabs color="primary">
+      <q-tabs position="top" color="primary" >
         <q-route-tab
           icon="person pin"
-          to="/"
+          to="/home"
           slot="title"
           style="border-color:#555"
         ></q-route-tab>
         <q-route-tab
-          icon="person pin"
-          to="/"
+          icon="note add"
+          to="/add"
           exact
           slot="title"
         ></q-route-tab>
@@ -67,7 +67,7 @@ export default {
   },
   computed: {
     title() {
-      let re = { "/": "我的问卷", "/analyse": "结果分析" };
+      let re = { "/home": "我的问卷", "/add": "创建问卷" };
       return re[this.$route.path];
     },
     authToken() {
@@ -103,10 +103,12 @@ export default {
         return this.authToken ? false : true;
       },
       result({ data }) {
-        console.log(data);
         this.user.name = data.login.name;
         this.user.authToken = data.login.authToken;
-        this.$router.push("/home");
+        this.$route.path === "/" ? this.$router.push("/home") : null;
+      },
+      error() {
+        this.logout();
       }
     }
   }
