@@ -1,6 +1,6 @@
 // Configuration for your app
 
-module.exports = function(ctx) {
+module.exports = function (ctx) {
   return {
     plugins: ["axios", "apollo", "bmob", "vuelidate"],
     css: ["app.styl"],
@@ -29,26 +29,31 @@ module.exports = function(ctx) {
       // https: true,
       // port: 8080,
       open: true, // opens browser window automatically
-      proxy: {
-        // proxy all requests starting with /api to jsonplaceholder
-        "/api": {
-          target: "http://localhost:8081",
-          changeOrigin: true
-        },
-        "/bmob": {
-          target: "https://api.bmob.cn/",
-          changeOrigin: true,
-          pathRewrite: {
-            "^/bmob": ""
-          }
-        }
-      }
+      // proxy: {
+      //   // proxy all requests starting with /api to jsonplaceholder
+      //   "/graphql": {
+      //     target: "http://localhost:8081",
+      //     changeOrigin: true,
+      //   },
+      //   "/api": {
+      //     target: "http://localhost:8081",
+      //     changeOrigin: true,
+      //   },
+      //   "/bmob": {
+      //     target: "https://api.bmob.cn/",
+      //     changeOrigin: true,
+      //     pathRewrite: {
+      //       "^/bmob": ""
+      //     }
+      //   }
+      // }
     },
     // framework: 'all' --- includes everything; for dev only!
     framework: {
       i18n: "zh-hans",
       components: [
         "QLayout",
+        "QModalLayout",
         "QLayoutHeader",
         "QLayoutDrawer",
         "QPageContainer",
@@ -91,7 +96,8 @@ module.exports = function(ctx) {
         "QStepperNavigation",
         "QChip",
         "QPullToRefresh",
-        "QSpinner"
+        "QSpinner",
+        "QProgress"
       ],
       directives: ["Ripple", "BackToTop", "TouchPan"],
       plugins: [
@@ -106,8 +112,7 @@ module.exports = function(ctx) {
     // animations: 'all' --- includes all animations
     animations: ["fadeInDown", "fadeInUp", "fadeIn"],
     pwa: {
-      cacheExt:
-        "js,html,css,ttf,eot,otf,woff,woff2,json,svg,gif,jpg,jpeg,png,wav,ogg,webm,flac,aac,mp4,mp3",
+      cacheExt: "js,html,css,ttf,eot,otf,woff,woff2,json,svg,gif,jpg,jpeg,png,wav,ogg,webm,flac,aac,mp4,mp3",
       manifest: {
         name: "未命名 - 智能问卷系统",
         short_name: "Untitled",
@@ -116,8 +121,7 @@ module.exports = function(ctx) {
         orientation: "portrait",
         background_color: "#ffffff",
         theme_color: "#51b882",
-        icons: [
-          {
+        icons: [{
             src: "statics/icons/logo - 128*128.png",
             sizes: "128x128",
             type: "image/png"

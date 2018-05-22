@@ -14,7 +14,11 @@ export default [
       {
         path: "add",
         component: () => import("pages/survey/add")
-      }
+      },
+      {
+        path: "analysis",
+        component: () => import("pages/analysis/index"),
+      },
     ]
   },
   {

@@ -40,7 +40,7 @@
         ></q-route-tab>
         <q-route-tab
           icon="equalizer"
-          to="/analyse"
+          to="/analysis"
           exact
           slot="title"
         ></q-route-tab>
@@ -67,7 +67,7 @@ export default {
   },
   computed: {
     title() {
-      let re = { "/home": "我的问卷", "/add": "创建问卷" };
+      let re = { "/home": "我的问卷", "/add": "创建问卷",'/analysis':"结果分析" };
       return re[this.$route.path];
     },
     authToken() {
