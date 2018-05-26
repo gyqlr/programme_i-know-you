@@ -27,7 +27,7 @@ export default {
     methods: {
         getResult() {
             this.loading++
-            this.$axios.get(`http://111.231.68.175:8081/api/keywords/${this.question.id}`).then(res=>{
+            this.$axios.get(`https://www.mywsq.cn/api/keywords/${this.question.id}`).then(res=>{
                 this.data = res.data.map(item=>{
                     return {name:item[1],value:item[0]}
                 })

@@ -9,7 +9,7 @@ const apolloProvider = new VueApollo({
   defaultClient: new ApolloClient({
     link: new HttpLink({
       // You should use an absolute URL here
-      uri: 'http://111.231.68.175:8081/graphql'
+      uri: 'https://www.mywsq.cn/graphql'
     }),
     cache: new InMemoryCache(),
     connectToDevTools: true

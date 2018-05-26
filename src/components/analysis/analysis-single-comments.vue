@@ -39,7 +39,7 @@ export default {
     methods: {
         getResult() {
             this.loading++
-            this.$axios.get(`http://111.231.68.175:8081/api/comments/${this.question.id}`).then(res=>{
+            this.$axios.get(`https://www.mywsq.cn/api/comments/${this.question.id}`).then(res=>{
                 this.data = res.data
                 this.loading--
             }).catch(error=>{

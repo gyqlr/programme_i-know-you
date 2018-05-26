@@ -58,7 +58,7 @@ export default {
       this.loading++;
       if (this.question.type !== '填空题'){
       axios
-        .get(`http://111.231.68.175:8081/api/${this.question.id}`)
+        .get(`https://www.mywsq.cn/api/${this.question.id}`)
         .then(val => {
           this.result = val.data;
           this.loading--;
