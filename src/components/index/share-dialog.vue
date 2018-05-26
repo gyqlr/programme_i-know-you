@@ -21,7 +21,7 @@ export default {
       }
     },
     realURL() {
-      return location.protocol + "//" + location.host + "/#/submit/" + this.id;
+      return location.protocol + "//" + location.host + "/buptQuestionnaire/#/submit/" + this.id;
     }
   },
   methods: {
