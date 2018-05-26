@@ -33,12 +33,6 @@
           slot="title"
         ></q-route-tab>
         <q-route-tab
-          icon="person pin"
-          to="/"
-          exact
-          slot="title"
-        ></q-route-tab>
-        <q-route-tab
           icon="equalizer"
           to="/analysis"
           exact

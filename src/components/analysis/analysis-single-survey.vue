@@ -8,7 +8,7 @@
             问题分析
           </q-toolbar-title>
         </q-toolbar>
-        <div class="q-pa-md">
+        <div >
           <apollo-query :query="curGql">
             <template slot-scope="{ result: { loading, error, data } }">
               <!-- Loading -->
