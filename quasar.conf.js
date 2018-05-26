@@ -29,24 +29,24 @@ module.exports = function (ctx) {
       // https: true,
       // port: 8080,
       open: true, // opens browser window automatically
-      proxy: {
-        // proxy all requests starting with /api to jsonplaceholder
-        "/graphql": {
-          target: "http://localhost:8081",
-          changeOrigin: true,
-        },
-        "/api": {
-          target: "http://localhost:8081",
-          changeOrigin: true,
-        },
-        "/bmob": {
-          target: "https://api.bmob.cn/",
-          changeOrigin: true,
-          pathRewrite: {
-            "^/bmob": ""
-          }
-        }
-      }
+      // proxy: {
+      //   // proxy all requests starting with /api to jsonplaceholder
+      //   "/graphql": {
+      //     target: "http://localhost:8081",
+      //     changeOrigin: true,
+      //   },
+      //   "/api": {
+      //     target: "http://localhost:8081",
+      //     changeOrigin: true,
+      //   },
+      //   "/bmob": {
+      //     target: "https://api.bmob.cn/",
+      //     changeOrigin: true,
+      //     pathRewrite: {
+      //       "^/bmob": ""
+      //     }
+      //   }
+      // }
     },
     // framework: 'all' --- includes everything; for dev only!
     framework: {

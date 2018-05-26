@@ -1,7 +1,7 @@
 import Axios from 'axios'
 
 var instance = Axios.create({
-  baseURL: '/bmob/1',
+  baseURL: 'https://api.bmob.cn/1',
   headers: {
     'X-Bmob-Application-Id': 'd680a6ffca237c744a6d12aa80c73c14',
     'X-Bmob-REST-API-Key': '8f0d2739c9a5c143c6d12d0801e08ab4',

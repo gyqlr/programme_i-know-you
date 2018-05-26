@@ -57,7 +57,7 @@ export default {
         methods: {
             getResult() {
                 this.loading++
-                this.$axios.get(`/api/sentiment/${this.question.id}`).then(res=>{
+                this.$axios.get(`http://111.231.68.175:8081/api/sentiment/${this.question.id}`).then(res=>{
                     this.data = res.data
                     this.loading--
                 }).catch(error=>{

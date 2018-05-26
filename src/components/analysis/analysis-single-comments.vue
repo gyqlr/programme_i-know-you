@@ -3,7 +3,7 @@
         <q-spinner v-if="loading>0" color="secondary" size="2em" style="width:100%;margin-top:1em" />
         <div v-else-if="!error">
             <div class="q-list-header" style="padding-left:0">关键意见抽取</div>
-            <q-list no-border dense>
+            <q-list no-border dense v-if="data.length>0">
                 <q-collapsible indent dense multiline v-for="item in data" :key="item._id" >
                     <template slot="header" class="header">
                         <q-item-main style="font-weight:500">{{item.opinion}}</q-item-main>
@@ -15,6 +15,9 @@
                 </q-collapsible>
                 
             </q-list>
+            <span v-else>
+                暂无
+            </span>
         </div>
         <span v-else>获取数据失败</span>
     </div>
@@ -36,7 +39,7 @@ export default {
     methods: {
         getResult() {
             this.loading++
-            this.$axios.get(`/api/comments/${this.question.id}`).then(res=>{
+            this.$axios.get(`http://111.231.68.175:8081/api/comments/${this.question.id}`).then(res=>{
                 this.data = res.data
                 this.loading--
             }).catch(error=>{
